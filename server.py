@@ -91,14 +91,34 @@ def handle_client(client_connection):
     if method == "POST" and path == "/submit":
         form_data = parse_post_body(request_data)
         user_name = form_data['name']
-        
-        response_html = f"""
-        <!DOCTYPE html><html><body>
-            <h1>Thank you, {user_name}!</h1>
-            <a href="/index.html">Back</a>
-        </body></html>
-        """
-        response = generate_response(response_html, "200 OK")
+
+        with open("public/contact.html", "r", encoding="utf-8") as f:
+                html_content = f.read()
+
+        marker_start = "<!-- FORM_START -->"
+        marker_end   = "<!-- FORM_END -->"
+
+        start_index = html_content.find(marker_start)
+        end_index   = html_content.find(marker_end)
+
+        if start_index != -1 and end_index != -1:
+            part_before = html_content[:start_index]
+            part_after  = html_content[end_index + len(marker_end):]
+
+            success_message = f"""
+            <div class="card" style="text-align: center; max-width: 600px; margin: 2rem auto;">
+                <h2 style="color: var(--primary-color);">Message Sent!</h2>
+                <p>Thank you, <strong>{user_name}</strong>.</p>
+                <p>We will get back to you shortly.</p>
+                <br>
+                <a href="/index.html" style="font-weight: bold;">Back to Home</a>
+            </div>
+            """
+
+            new_html = part_before + success_message + part_after
+            response = generate_response(new_html, "200 OK")
+        else:
+            response = generate_response("<h1>Error: Markers not found in contact.html</h1>", "500 Error")
     else:
         file_path = path if path != "/" else "/index.html"
         content, status, mime = read_file(file_path)
