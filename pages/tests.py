@@ -21,8 +21,8 @@ class PagesTests(TestCase):
     def test_projects_search_filters(self):
         response = self.client.get("/projects/?q=python")
         
-        for project in response.context["project_list"]:
-            lang_match = project.lang == "pPython"
-            name_match = "python" in project.name.lower()
+        for project in response.context["projects"]:
+            lang_match = project["lang"] == "Python"
+            name_match = "python" in project["name"].lower()
             
             self.assertTrue(lang_match or name_match)

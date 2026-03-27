@@ -1,5 +1,11 @@
-<ul>
-    {% for skill in skills %}
-        <li>{{ skill }}</li>
-    {% endfor %}
-</ul>
+{% extends "pages/base.html" %}
+
+{% block title %}About{% endblock %}
+
+{% block content %}
+    <ul>
+        {% for skill in skills %}
+            <li>{{ skill }}</li>
+        {% endfor %}
+    </ul>
+{% endblock %}

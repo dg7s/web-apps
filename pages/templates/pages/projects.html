@@ -1,0 +1,31 @@
+{% extends "pages/base.html" %}
+
+{% block title %}Projects{% endblock %}
+
+{% block content %}
+    <h1>Completed projects: {{ done_count }}</h1>
+
+    <form method="GET">
+        <input type="text" name="q" value="{{ q }}" placeholder="Search...">
+        <button type="submit">Search</button>
+    </form>
+
+    {% if q %}
+        <p>Showing results for "{{ q|lower }}"</p>
+    {% endif %}
+
+    <ul>
+        {% for project in projects %}
+            <li>
+                {{ project.name|upper }} ({{ project.lang|lower }}, {{ project.year|add:1 }})
+                {% if project.done %}
+                    Done
+                {% else %}
+                    Not done
+                {% endif %}
+            </li>
+        {% empty %}
+            <li>No projects found</li>
+        {% endfor %}
+    </ul>
+{% endblock %}

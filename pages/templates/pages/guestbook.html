@@ -1,0 +1,22 @@
+{% extends "pages/base.html" %}
+
+{% block title %}Guestbook{% endblock %}
+
+{% block content %}
+    <h1>Guestbook</h1>
+
+    <ul>
+        {% for entry in entries %}
+            <li><strong>{{ entry.name }}</strong>: {{ entry.message }}</li>
+        {% empty %}
+            <li>No entries yet</li>
+        {% endfor %}
+    </ul>
+
+    <form method="POST">
+        {% csrf_token %}
+        <input type="text" name="name" placeholder="Your name" required>
+        <input type="text" name="message" placeholder="Your message" required>
+        <button type="submit">Add</button>
+    </form>
+{% endblock %}

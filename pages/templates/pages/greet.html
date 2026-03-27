@@ -1,2 +1,20 @@
-<h1>Hello, {{ name }}!</h1>
-<!-- TODO: Add a link back to home using {% url 'home' %} -->
+{% extends "pages/base.html" %}
+
+{% block title %}Greet{% endblock %}
+
+{% block content %}
+    <h1>Hello, {{ name }}!</h1>
+
+    {% if message %}
+        <p>{{ message }}</p>
+    {% endif %}
+
+    <form method="POST">
+        {% csrf_token %}
+        <label for="note">Leave a note:</label>
+        <input type="text" id="note" name="note" required>
+        <button type="submit">Send</button>
+    </form>
+
+    <a href="{% url 'home' %}">Back to home</a>
+{% endblock %}
