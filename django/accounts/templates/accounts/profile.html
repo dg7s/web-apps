@@ -1,0 +1,8 @@
+{% extends "pages/base.html" %}
+{% block title %}Profile{% endblock %}
+{% block content %}
+    <h1>Profile: {{ user.username }}</h1>
+    <p>Email: {{ user.email }}</p>
+    <p>Joined: {{ user.date_joined|date:"d M Y" }}</p>
+    <p>Staff status: {{ user.is_staff }}</p>
+{% endblock %}

@@ -6,11 +6,12 @@ from django.urls import reverse
 import datetime
 
 def home(request):
+    count = request.session.get("visit_count", 0) + 1
+    request.session["visit_count"] = count
+
     context = {
-        # TODO: Add "page_title", "heading", and "server_time" keys
-        # server_time should be datetime.datetime.now()
         "page_title": "Hello",
-        "heading": "wlrd",
+        "heading": f"Welcome! You have visited this page {count} time(s) this session.",
         "server_time": datetime.datetime.now(),
     }
     return render(request, "pages/home.html", context)
@@ -74,3 +75,6 @@ def guestbook(request):
             return HttpResponseRedirect(reverse("guestbook"))
 
     return render(request, "pages/guestbook.html", {"entries": ENTRIES})
+
+def api_demo(request):
+    return render(request, "pages/api_demo.html")

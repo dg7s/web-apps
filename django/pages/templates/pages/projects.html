@@ -16,14 +16,7 @@
 
     <ul>
         {% for project in projects %}
-            <li>
-                {{ project.name|upper }} ({{ project.lang|lower }}, {{ project.year|add:1 }})
-                {% if project.done %}
-                    Done
-                {% else %}
-                    Not done
-                {% endif %}
-            </li>
+            {% include "pages/_project_row.html" %}
         {% empty %}
             <li>No projects found</li>
         {% endfor %}

@@ -1,0 +1,8 @@
+<li>
+    {{ project.name|upper }} ({{ project.lang|lower }}, {{ project.year|add:1 }})
+    {% if project.done %}
+        Done
+    {% else %}
+        Not done
+    {% endif %}
+</li>
