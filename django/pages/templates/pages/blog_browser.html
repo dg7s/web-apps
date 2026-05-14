@@ -1,0 +1,27 @@
+{% extends "pages/base.html" %}
+{% load static %}
+{% block title %}Browse Posts{% endblock %}
+
+{% block content %}
+<style>
+    .focused { outline: 2px solid steelblue; outline-offset: 4px; background-color: #f8f9fa; }
+    article { border: 1px solid #ddd; padding: 15px; margin-bottom: 10px; border-radius: 5px; }
+    article:focus { outline: none; }
+</style>
+
+<h1>Browse Posts</h1>
+<div>
+    <input type="text" id="search-input" placeholder="Search…" autocomplete="off">
+    
+    <select id="sort-select">
+        <option value="date">Date (Newest)</option>
+        <option value="title">Title (A-Z)</option>
+        <option value="category">Category</option>
+    </select>
+</div>
+
+<p id="status-bar" style="color: gray; font-style: italic;"></p>
+<div id="post-list"></div>
+
+<script src="{% static 'pages/js/main.js' %}"></script>
+{% endblock %}

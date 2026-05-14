@@ -8,4 +8,5 @@ urlpatterns = [
     path("greet/<str:name>/", views.greet, name="greet"),
     path("guestbook/", views.guestbook, name="guestbook"),
     path("api-demo/", views.api_demo, name="api-demo"),
+    path("browse/", views.blog_browser, name="blog-browser"),
 ]

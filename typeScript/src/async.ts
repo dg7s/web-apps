@@ -29,4 +29,31 @@ async function fetchTodo(id: number): Promise<Todo> {
     return data;
 }
 
-export { delay, countdown, fetchTodo, Todo };
+// TODO: Write a function fetchWithTimeout<T>(url: string, ms: number): Promise<T>
+// that rejects if the request takes longer than `ms` milliseconds.
+// Hint: use Promise.race() with delay() that throws after the timeout.
+//
+// Test it:
+//   fetchWithTimeout<Todo>("https://jsonplaceholder.typicode.com/todos/1", 5000)
+//     → should succeed
+//   fetchWithTimeout<Todo>("https://jsonplaceholder.typicode.com/todos/1", 1)
+//     → should reject with a timeout error
+//
+// Display "✅ Succeeded" or "❌ Timed out" in the page for each test.
+
+async function fetchWithTimeout<T>(url: string, ms: number): Promise<T> {
+    const timeoutPromise = delay(ms).then(() => {
+        throw new Error("Timeout");
+    });
+
+    const fetchPromise = fetch(url).then(res => {
+        if (!res.ok) {
+            throw new Error(`HTTP ${res.status}`);
+        }
+        return res.json() as Promise<T>;
+    });
+
+    return Promise.race([fetchPromise, timeoutPromise]);
+}
+
+export { delay, countdown, fetchTodo, Todo, fetchWithTimeout };

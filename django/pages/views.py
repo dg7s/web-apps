@@ -78,3 +78,6 @@ def guestbook(request):
 
 def api_demo(request):
     return render(request, "pages/api_demo.html")
+
+def blog_browser(request):
+    return render(request, "pages/blog_browser.html")
